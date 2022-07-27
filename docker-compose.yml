@@ -1,0 +1,28 @@
+version: "3.5"
+services:
+  erigon:
+    image: "erigon.ropsten-erigon.dnp.dappnode.eth:0.1.0"
+    build:
+      context: erigon
+      args:
+        UPSTREAM_VERSION: v2022.07.03
+    ports:
+      - "30605:30605/tcp"
+      - "30605:30605/udp"
+    volumes:
+      - "data:/home/erigon/.local/share"
+    environment:
+      P2P_PORT: 30605
+      ERIGON_EXTRA_OPTS: >-
+        --http.api=engine,eth,erigon,web3,net,debug,trace,txpool --prune htc --prune.r.before=12269949
+    restart: unless-stopped
+    ulimits:
+      nofile:
+        soft: 1000000
+        hard: 1000000
+    deploy:
+      resources:
+        limits:
+          memory: 16384M
+volumes:
+  data: {}
