@@ -8,6 +8,7 @@
 # Datadir migration must be done manually according to https://github.com/ledgerwatch/erigon/releases/tag/v2021.08.03
 
 PORT="${P2P_PORT:=30303}"
+TORRENT_PORT="${BITTORRENT_PORT:=42069}"
 
 DATADIR="/home/erigon/.local/share"
 
@@ -51,5 +52,6 @@ exec erigon --datadir=${DATADIR} \
     --pprof.addr=0.0.0.0 \
     --pprof.port=6061 \
     --port=${P2P_PORT} \
+    --torrent.port=${BITTORRENT_PORT} \
     --authrpc.jwtsecret=/jwtsecret \
     ${ERIGON_EXTRA_OPTS}

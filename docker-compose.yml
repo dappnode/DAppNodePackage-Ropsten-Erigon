@@ -9,12 +9,16 @@ services:
     ports:
       - "30605:30605/tcp"
       - "30605:30605/udp"
+      - "42369:42369/tcp"
+      - "42369:42369/udp"
     volumes:
       - "data:/home/erigon/.local/share"
     environment:
       P2P_PORT: 30605
+      BITTORRENT_PORT: 42369
       ERIGON_EXTRA_OPTS: >-
-        --http.api=engine,eth,erigon,web3,net,debug,trace,txpool --prune htc --prune.r.before=12269949
+        --http.api=engine,eth,erigon,web3,net,debug,trace,txpool --prune htc
+        --prune.r.before=12269949
     restart: unless-stopped
     ulimits:
       nofile:
